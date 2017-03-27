@@ -1,17 +1,17 @@
 body {
-    height: 695px;
-    background-image: url("../../modules/Login/images/loginBackground.png"); /*图片地址*/
+    height: 930px;
+    background-image: url("/resources/Login/images/loginBackground.png"); /*图片地址*/
     background-origin: content; /*从content区域开始显示背景*/
     background-position: 50% 50%; /*图片上下左右居中*/
-    background-size: contain; /*保持图像本身的宽高比例，将图片缩放到宽度或高度正好适应定义背景的区域*/
+    background-size: cover; /*保持图像本身的宽高比例，将图片缩放到宽度或高度正好适应定义背景的区域*/
     background-repeat:no-repeat;/*图像不重复显示*/
 }
 
 .loginForm {
     height: 300px;
-    left: 800px;
+    left: 60%;
     position: absolute;
-    top: 150px;
+    top: 40%;
     width: 400px;
 }
 
