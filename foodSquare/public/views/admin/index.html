@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="utf-8"/>
+    <title>管理首页</title>
+    <script src="javascript/lib/jquery/jquery-3.0.0.min.js"></script>
+
+    <!-- Bootstrap -->
+    <link href="/lib/bootstrap-3.3.5-dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="//cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <script src="/lib/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
+    <script src="/lib/plugins/tools/tools.js"></script>
+
+
+    <script src="/lib/plugins/verticalNav/js/menu_min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/lib/plugins/verticalNav/css/menu-css.css">
+    <link rel="stylesheet" type="text/css" href="/lib/plugins/verticalNav/css/style.css">
+
+    <script src="/modules/AdminIndex/module.js"></script>
+    <script>
+
+        /* $(document).ready(function() {*/
+        /*  window.onload = function () {*/
+         new AdminIndex("main").load(ng_app);
+        angular.element(window).bind('load', function () {
+              new AdminIndex("main").load();
+        });
+        /*};*/
+        /*});*/
+    </script>
+</head>
+<body ng-app="md" ng-controller="mdCtrl">
+<!--<div ng-app="myApp" ng-controller="myCtrl">
+
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th>序号</th>
+            <th>用户名</th>
+            <th>密码</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+            <tr class="active" ng-repeat="x in rows">
+                <th>{{x}}</th>
+                <td>{{x}}</td>
+                <td>{{x}}</td>
+                <td>管理 删除</td>
+            </tr>
+        </tbody>
+    </table>
+</div>-->
+<div class="main">
+    <div class="adHeard container-fluid">
+        <div>
+            <img src="../../modules/AdminIndex/images/2.gif" width="100%" height="100px"/>
+        </div>
+        <div class="adminInfo">
+            <div>
+                欢迎您： admin
+            </div>
+            <div><a href="/view/index/index.html">首页</a></div>
+            <div><a href="/view/login/detail.html">退出</a></div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="adMenu col-lg-3">
+            <div id="content">
+            <div class="menu">
+                <ul>
+                    <li><a class="active" href="#">Item1</a>
+                        <ul style="display: block;">
+                            <li><a href="#">Subitem 1</a></li>
+                            <li><a href="#">Subitem 2</a>
+                                <ul>
+                                    <li><a href="#">Subitem 1</a></li>
+                                    <li><a href="#">Subitem 2</a></li>
+                                    <li><a href="#">Subitem 3</a></li>
+                                    <li><a href="#">Subitem 4</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="#">Subitem 3</a></li>
+                            <li><a href="#">Subitem 4</a>
+                                <ul>
+                                    <li><a href="#">Subitem 1</a></li>
+                                    <li><a href="#">Subitem 2</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="#">Subitem 5</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#">Item 2</a>
+                        <ul>
+                            <li><a href="#">Subitem 1</a></li>
+                            <li><a href="#">Subitem 2</a></li>
+                            <li><a href="#">Subitem 3</a></li>
+                            <li><a href="#">Subitem 4</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#">Item 3</a>
+                        <ul>
+                            <li><a href="#">Subitem 1</a></li>
+                            <li><a href="#">Subitem 2</a></li>
+                            <li><a href="#">Subitem 3</a></li>
+                            <li><a href="#">Subitem 4</a></li>
+                            <li><a href="#">Subitem 5</a></li>
+                            <li><a href="#">Subitem 6</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#">Item without subitems</a></li>
+                    <li><a href="#">Item without subitems</a></li>
+                </ul>
+            </div>
+        </div>
+        </div>
+        <div class="adMenuDetail col-lg-9">
+            <!--<div ng-app="md" ng-controller="mdCtrl">-->
+                <div data-example-id="contextual-table" class="listBlock">
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th>序号</th>
+                            <th>用户名</th>
+                            <th>密码</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr class="active" ng-repeat="x in rows">
+                            <th>{{x}}</th>
+                            <td>{{x}}</td>
+                            <td>{{x}}</td>
+                            <td>管理 删除</td>
+                        </tr>
+
+                        <!-- <tr class="active">
+                             <th scope="row">2</th>
+                             <td>Column content</td>
+                             <td>Column content</td>
+                             <td>Column content</td>
+                         </tr>
+                         <tr class="active">
+                             <th scope="row">3</th>
+                             <td>Column content</td>
+                             <td>Column content</td>
+                             <td>Column content</td>
+                         </tr>
+                         <tr class="active">
+                             <th scope="row">4</th>
+                             <td>Column content</td>
+                             <td>Column content</td>
+                             <td>Column content</td>
+                         </tr>
+                         <tr class="active">
+                             <th scope="row">5</th>
+                             <td>Column content</td>
+                             <td>Column content</td>
+                             <td>Column content</td>
+                         </tr>
+                         <tr class="active">
+                             <th scope="row">6</th>
+                             <td>Column content</td>
+                             <td>Column content</td>
+                             <td>Column content</td>
+                         </tr>
+                         <tr class="active">
+                             <th scope="row">7</th>
+                             <td>Column content</td>
+                             <td>Column content</td>
+                             <td>Column content</td>
+                         </tr>
+                         <tr class="active">
+                             <th scope="row">8</th>
+                             <td>Column content</td>
+                             <td>Column content</td>
+                             <td>Column content</td>
+                         </tr>
+                         <tr class="active">
+                             <th scope="row">9</th>
+                             <td>Column content</td>
+                             <td>Column content</td>
+                             <td>Column content</td>
+                         </tr>
+                         <tr class="active">
+                             <th scope="row">10</th>
+                             <td>Column content</td>
+                             <td>Column content</td>
+                             <td>Column content</td>
+                         </tr>-->
+                        </tbody>
+                    </table>
+                </div>
+            <!--</div>-->
+            <div class="page">
+                <nav>
+                    <ul class="pagination">
+                        <li>
+                            <a href="#" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                        <li><a href="#">1</a></li>
+                        <li><a href="#">2</a></li>
+                        <li><a href="#">3</a></li>
+                        <li><a href="#">4</a></li>
+                        <li><a href="#">5</a></li>
+                        <li>
+                            <a href="#" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
