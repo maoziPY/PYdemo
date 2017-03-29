@@ -18,24 +18,20 @@
 
     <script src="javascript/lib/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
 
+    <script src="javascript/lib/react/react.min.js"></script>
+    <script src="javascript/lib/react/react-dom.min.js"></script>
+    <script src="https://cdn.bootcss.com/babel-standalone/6.22.1/babel.min.js"></script>
+
+
     <script src="javascript/lib/plugins/tools/tools.js"></script>
 
-    <script src="javascript/lib/angular.min.js"></script> 
     <script src="javascript/Login/main.js"></script>
-    <script>
-       /* $(document).ready(function() {
-            new Login("main").load();
-        });*/
-    </script>
 </head>
 <body>
     <div class="main">
-        <!-- <div class="logo">
-             <img src="../../modules/Login/images/loginBackground.png" width="1350px" height="680px"/>
-         </div>-->
          <div class="loginForm">
-             <input type="text" class="form-control username" placeholder="邮箱/用户名/手机号">
-             <input type="text" class="form-control password" placeholder="密码">
+            <span id="input"></span>
+             
              <div class="loginOpera">
                  <div>
                      <button type="button" class="btn btn-primary submitBtn">
@@ -48,5 +44,20 @@
              </div>
          </div>
     </div>
+    <script type="text/babel">
+        var HelloMessage = React.createClass({
+            render: function() {
+              return <span>
+                      <input type="text" className="form-control username" placeholder="邮箱/用户名/手机号" />
+                      <input type="text" className="form-control password" placeholder="密码" />
+                     </span>;
+            }
+        });
+
+        ReactDOM.render(
+            <HelloMessage />,
+            document.getElementById('input')
+        ); 
+    </script>
 </body>
 </html>
