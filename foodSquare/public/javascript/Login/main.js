@@ -7,8 +7,8 @@ var HelloMessage = React.createClass({
     },
 
     handelClick: function(e) {
-        console.log(this.state.username);
-        console.log(this.state.password);
+        /*console.log(this.state.username);
+console.log(this.state.password);*/
     },
 
     handelChangeUser: function(e) {
