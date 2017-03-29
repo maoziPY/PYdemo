@@ -1,14 +1,37 @@
 var HelloMessage = React.createClass({
-    handelClick: function() {},
+    getInitialState: function() {
+        return {
+            username: '',
+            password: ''
+        };
+    },
 
+    handelClick: function(e) {
+        console.log(this.state.username);
+        console.log(this.state.password);
+    },
+
+    handelChangeUser: function(e) {
+        this.setState({
+            username: e.target.value,
+        });
+    },
+
+    handelChangePass: function(e) {
+        this.setState({
+            password: e.target.value
+        });
+    },
 
     render: function() {
+        var username = this.state.username,
+            password = this.state.password;
         return <div>
-               <input type="text" className="form-control username" placeholder="邮箱/用户名/手机号" />
-               <input type="text" className="form-control password" placeholder="密码" />
+               <input type="text" className="form-control username" placeholder="邮箱/用户名/手机号" onChange={this.handelChangeUser}    />
+               <input type="text" className="form-control password" placeholder="密码" onChange={this.handelChangePass} />
                <div className="loginOpera">
                    <div>
-                       <button type="button" className="btn btn-primary submitBtn">
+                       <button type="button" className="btn btn-primary submitBtn" onClick={this.handelClick} >
                            登录
                        </button>
                        </div>
