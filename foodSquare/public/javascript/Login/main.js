@@ -26,7 +26,7 @@ console.log(this.state.password);*/
     render: function() {
         var username = this.state.username,
             password = this.state.password;
-        return <div>
+        return <span>
                <input type="text" className="form-control username" placeholder="邮箱/用户名/手机号" onChange={this.handelChangeUser}    />
                <input type="text" className="form-control password" placeholder="密码" onChange={this.handelChangePass} />
                <div className="loginOpera">
@@ -39,7 +39,7 @@ console.log(this.state.password);*/
                        忘记密码
                    </div>
                </div>
-              </div>;
+              </span>;
     }
 });
 
