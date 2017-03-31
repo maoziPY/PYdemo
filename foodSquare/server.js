@@ -1,5 +1,6 @@
 var express = require('express');
 var app = express();
+var user = require('./models/user');
 
 app.get('/', function(req, res) {
 	res.sendFile( __dirname + '/public/views/index/' + 'index.html');
@@ -11,6 +12,12 @@ app.get('/login', function(req, res) {
 
 app.get('/admin', function(req, res) {
 	res.sendFile( __dirname + '/public/views/admin/' + 'index.html');
+});
+
+app.get('/checkUser', function(req, res) {
+	user.getUserbyUsername('py', function(err, data) {
+		console.log(data);
+	});
 });
 
 app.use(express.static('public'));
