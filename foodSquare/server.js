@@ -15,8 +15,18 @@ app.get('/admin', function(req, res) {
 });
 
 app.get('/checkUser', function(req, res) {
-	user.getUserbyUsername('py', function(err, data) {
-		console.log(data);
+	response = {
+		username: req.query.username,
+		password: req.query.password
+	};
+
+	user.getUserbyUsername(response.username, function(err, data) {
+		for(var i=0, len=data.length; i<len; i++) {
+			if (response.username == data[i].username && response.password == data[i].password) {
+				res.end(JSON.stringify({result: 'ok'}));
+			}
+		}
+		res.end(JSON.stringify({result: 'error'}));
 	});
 });
 
