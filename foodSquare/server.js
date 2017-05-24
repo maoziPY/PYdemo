@@ -23,10 +23,29 @@ app.get('/checkUser', function(req, res) {
 	user.getUserbyUsername(response.username, function(err, data) {
 		for(var i=0, len=data.length; i<len; i++) {
 			if (response.username == data[i].username && response.password == data[i].password) {
-				res.end(JSON.stringify({result: 'ok'}));
+				res.end(JSON.stringify({
+					result: 'ok',
+					data: {
+						user: response.username == 'admin' ? 'admin' : 'guest'
+					}
+				}));
 			}
 		}
 		res.end(JSON.stringify({result: 'error'}));
+	});
+});
+
+app.get('/getData', function(req, res) {
+	response = {
+		database: req.query.database
+	};
+
+	user.getData(response.database, function(err, data) {
+		console.log(data);
+		res.end(JSON.stringify({
+			result: 'ok',
+			data: data
+		}));
 	});
 });
 

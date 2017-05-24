@@ -1,5 +1,26 @@
 var HelloMessage = React.createClass({
-    render: function() {
+    getInitialState() {
+        return {
+            trData: '123'
+        };
+    },
+
+    getData() {
+        var data = {
+            database: 'user'
+        };
+
+        SERVER.call('/getData', data, 'GET', function(res) {
+            var res = JSON.parse(res);
+            if (res.result == 'ok') {
+                this.setState(function(state) {
+                    return {trData: res};
+                });
+            }
+        }.bind(this));
+    },
+
+    render() {
         return <span>
                     <div className="adHeard container-fluid">
                         <div>
@@ -18,6 +39,8 @@ var HelloMessage = React.createClass({
                             <div id="content">
                             <div className="menu">
                                 <ul>
+                                    <li><a href="javascript:void(0)" onClick={this.getData}>用户信息</a></li>
+                                    <li><a href="#">Item without subitems</a></li>
                                     <li><a className="active" href="#">Item1</a>
                                         <ul>
                                             <li><a href="#">Subitem 1</a></li>
@@ -57,8 +80,6 @@ var HelloMessage = React.createClass({
                                             <li><a href="#">Subitem 6</a></li>
                                         </ul>
                                     </li>
-                                    <li><a href="#">Item without subitems</a></li>
-                                    <li><a href="#">Item without subitems</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -74,62 +95,7 @@ var HelloMessage = React.createClass({
                                         <th>操作</th>
                                     </tr>
                                     </thead>
-                                    <tbody>
-                                    <tr className="active">
-                                         <th scope="row">2</th>
-                                         <td>Column content</td>
-                                         <td>Column content</td>
-                                         <td>Column content</td>
-                                     </tr>
-                                     <tr className="active">
-                                         <th scope="row">3</th>
-                                         <td>Column content</td>
-                                         <td>Column content</td>
-                                         <td>Column content</td>
-                                     </tr>
-                                     <tr className="active">
-                                         <th scope="row">4</th>
-                                         <td>Column content</td>
-                                         <td>Column content</td>
-                                         <td>Column content</td>
-                                     </tr>
-                                     <tr className="active">
-                                         <th scope="row">5</th>
-                                         <td>Column content</td>
-                                         <td>Column content</td>
-                                         <td>Column content</td>
-                                     </tr>
-                                     <tr className="active">
-                                         <th scope="row">6</th>
-                                         <td>Column content</td>
-                                         <td>Column content</td>
-                                         <td>Column content</td>
-                                     </tr>
-                                     <tr className="active">
-                                         <th scope="row">7</th>
-                                         <td>Column content</td>
-                                         <td>Column content</td>
-                                         <td>Column content</td>
-                                     </tr>
-                                     <tr className="active">
-                                         <th scope="row">8</th>
-                                         <td>Column content</td>
-                                         <td>Column content</td>
-                                         <td>Column content</td>
-                                     </tr>
-                                     <tr className="active">
-                                         <th scope="row">9</th>
-                                         <td>Column content</td>
-                                         <td>Column content</td>
-                                         <td>Column content</td>
-                                     </tr>
-                                     <tr className="active">
-                                         <th scope="row">10</th>
-                                         <td>Column content</td>
-                                         <td>Column content</td>
-                                         <td>Column content</td>
-                                     </tr>
-                                    </tbody>
+                                    <TbodyClass name={this.state.trData}/>
                                 </table>
                             </div>
                             <div className="page">
@@ -156,6 +122,26 @@ var HelloMessage = React.createClass({
                         </div>
                     </div>
                 </span>;
+    }
+});
+
+var TbodyClass = React.createClass({
+    render() {
+        var row = [];
+        console.log(this.props.name.data);
+        $(this.props.name.data).each(function(i, k) {
+            row.push(<tr className="active">
+                            <th scope="row">{k.id}</th>
+                            <td>{k.username}</td>
+                            <td>{k.password}</td>
+                            <td>管理 删除</td>
+                     </tr>);
+        });
+        return (
+            <tbody>
+                {row}
+            </tbody>
+        );
     }
 });
 

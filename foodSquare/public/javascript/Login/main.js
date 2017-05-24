@@ -16,8 +16,17 @@ var HelloMessage = React.createClass({
         SERVER.call('/checkUser', data, 'GET', function(res) {
             var res = JSON.parse(res);
                 if (res.result == 'ok') {
-                    location.href='/'
-                } else {
+                    var data = res.data;
+                    if (data.user == 'admin') {
+                        location.href = '/admin';
+                    } 
+
+                    else if (data.user == 'guest') {
+                        location.href='/';
+                    }
+                } 
+
+                else {
                     alert('账号或密码错误');
                 }
         });

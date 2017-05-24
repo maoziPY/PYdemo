@@ -23,8 +23,15 @@ User.getUserbyUsername = function(username, callback) {
 	});
 };
 
-User.requestServer = function() {
-	console.log('12313');
+User.getData = function(database, callback) {
+	var selectSql = 'select * from ' + database + ';';
+	connection.query(selectSql, [], function(err, res) {
+		if (err) {
+			console.log('err: ' + err);
+			return;
+		}
+		callback(err, res);
+	});
 };
 
 module.exports = User;
