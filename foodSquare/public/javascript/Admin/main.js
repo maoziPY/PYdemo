@@ -1,93 +1,165 @@
-/**
- * Created by PY on 2016/6/22 0022.
- */
-function AdminIndex() {
-    var module = this;
-    module.container = $("." + arguments[0]); // 模块容器
-    module.name = /function\s+(\w+)/.exec(arguments.callee)[1]; // 模板名称
-}
+var HelloMessage = React.createClass({
+    render: function() {
+        return <span>
+                    <div className="adHeard container-fluid">
+                        <div>
+                            <img src="resources/Admin/images/2.gif" width="100%" height="100px"/>
+                        </div>
+                        <div className="adminInfo">
+                            <div>
+                                欢迎您： admin
+                            </div>
+                            <div><a href="/view/index/index.html">首页</a></div>
+                            <div><a href="/view/login/detail.html">退出</a></div>
+                        </div>
+                    </div>
+                    <div className="container-fluid">
+                        <div className="adMenu col-lg-3">
+                            <div id="content">
+                            <div className="menu">
+                                <ul>
+                                    <li><a className="active" href="#">Item1</a>
+                                        <ul>
+                                            <li><a href="#">Subitem 1</a></li>
+                                            <li><a href="#">Subitem 2</a>
+                                                <ul>
+                                                    <li><a href="#">Subitem 1</a></li>
+                                                    <li><a href="#">Subitem 2</a></li>
+                                                    <li><a href="#">Subitem 3</a></li>
+                                                    <li><a href="#">Subitem 4</a></li>
+                                                </ul>
+                                            </li>
+                                            <li><a href="#">Subitem 3</a></li>
+                                            <li><a href="#">Subitem 4</a>
+                                                <ul>
+                                                    <li><a href="#">Subitem 1</a></li>
+                                                    <li><a href="#">Subitem 2</a></li>
+                                                </ul>
+                                            </li>
+                                            <li><a href="#">Subitem 5</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="#">Item 2</a>
+                                        <ul>
+                                            <li><a href="#">Subitem 1</a></li>
+                                            <li><a href="#">Subitem 2</a></li>
+                                            <li><a href="#">Subitem 3</a></li>
+                                            <li><a href="#">Subitem 4</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="#">Item 3</a>
+                                        <ul>
+                                            <li><a href="#">Subitem 1</a></li>
+                                            <li><a href="#">Subitem 2</a></li>
+                                            <li><a href="#">Subitem 3</a></li>
+                                            <li><a href="#">Subitem 4</a></li>
+                                            <li><a href="#">Subitem 5</a></li>
+                                            <li><a href="#">Subitem 6</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="#">Item without subitems</a></li>
+                                    <li><a href="#">Item without subitems</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        </div>
+                        <div className="adMenuDetail col-lg-9">
+                            <div data-example-id="contextual-table" className="listBlock">
+                                <table className="table table-hover">
+                                    <thead>
+                                    <tr>
+                                        <th>序号</th>
+                                        <th>用户名</th>
+                                        <th>密码</th>
+                                        <th>操作</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr className="active">
+                                         <th scope="row">2</th>
+                                         <td>Column content</td>
+                                         <td>Column content</td>
+                                         <td>Column content</td>
+                                     </tr>
+                                     <tr className="active">
+                                         <th scope="row">3</th>
+                                         <td>Column content</td>
+                                         <td>Column content</td>
+                                         <td>Column content</td>
+                                     </tr>
+                                     <tr className="active">
+                                         <th scope="row">4</th>
+                                         <td>Column content</td>
+                                         <td>Column content</td>
+                                         <td>Column content</td>
+                                     </tr>
+                                     <tr className="active">
+                                         <th scope="row">5</th>
+                                         <td>Column content</td>
+                                         <td>Column content</td>
+                                         <td>Column content</td>
+                                     </tr>
+                                     <tr className="active">
+                                         <th scope="row">6</th>
+                                         <td>Column content</td>
+                                         <td>Column content</td>
+                                         <td>Column content</td>
+                                     </tr>
+                                     <tr className="active">
+                                         <th scope="row">7</th>
+                                         <td>Column content</td>
+                                         <td>Column content</td>
+                                         <td>Column content</td>
+                                     </tr>
+                                     <tr className="active">
+                                         <th scope="row">8</th>
+                                         <td>Column content</td>
+                                         <td>Column content</td>
+                                         <td>Column content</td>
+                                     </tr>
+                                     <tr className="active">
+                                         <th scope="row">9</th>
+                                         <td>Column content</td>
+                                         <td>Column content</td>
+                                         <td>Column content</td>
+                                     </tr>
+                                     <tr className="active">
+                                         <th scope="row">10</th>
+                                         <td>Column content</td>
+                                         <td>Column content</td>
+                                         <td>Column content</td>
+                                     </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div className="page">
+                                <nav>
+                                    <ul className="pagination">
+                                        <li>
+                                            <a href="#" aria-label="Previous">
+                                                <span aria-hidden="true">&laquo;</span>
+                                            </a>
+                                        </li>
+                                        <li><a href="#">1</a></li>
+                                        <li><a href="#">2</a></li>
+                                        <li><a href="#">3</a></li>
+                                        <li><a href="#">4</a></li>
+                                        <li><a href="#">5</a></li>
+                                        <li>
+                                            <a href="#" aria-label="Next">
+                                                <span aria-hidden="true">&raquo;</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </span>;
+    }
+});
 
-AdminIndex.prototype.load = function () {
-    var module = this;
-    /*var app = angular.module("md", []);
-     app.controller("mdCtrl", function ($scope, $http) {
-     $http.post("http://localhost:3000/queryAll").then(function(response) {
-     $("body").html('<div">{{rows}}</div>');
-     $scope.rows = "1111";
-     /!* /!*$scope.myWelcome = response.data;*!/
-     var tm = '<div> ' +
-     '<div data-example-id="contextual-table" class="listBlock">' +
-     '<table class="table table-hover">' +
-     '<thead>' +
-     '<tr>' +
-     '<th>序号</th>' +
-     '<th>用户名</th>' +
-     '<th>密码</th>' +
-     '<th>操作</th>' +
-     '</tr>' +
-     '</thead>' +
-     '<tbody>' +
-     '<tr class="active" ng-repeat="x in rows">' +
-     '<th>{{x}}</th>' +
-     '<td>{{x}}</td>' +
-     '<td>{{x}}</td>' +
-     '<td>管理 删除</td>' +
-     '</tr>' +
-     '</tbody>' +
-     '</table>' +
-     '</div>' +
-     '</div>';
-     $("body").prepend(tm);*!/
-
-     });
-
-     });*/
-    /* return;
-     app.controller("mdCtrl", function ($scope) {
-
-     /!*var app = angular.module("md", []);
-     app.controller("mdCtrl", function ($scope) {*!/
-     $scope.rows = ["1", "2", "3"];
-     return;*/
-    PY.getTemplate(module.name, function (tm) {
-
-        // 渲染主模板
-        var $master = $(tm).find("[tmkey=master]");
-        module.container.empty();
-        module.container.append($master.html());
-
-        var $adHeard = $(tm).find("[tmkey=adHeard]"); // 头模板
-        var $adMenu = $(tm).find("[tmkey=adMenu]"); // 菜单模板
-        var $adMenuDetail = $(tm).find("[tmkey=adMenuDetail]"); // 菜单详情模板
-
-        var heardContainer = module.container.find(".adHeard");
-        var menuContainer = module.container.find(".adMenu");
-        var menudetContainer = module.container.find(".adMenuDetail");
-
-        heardContainer.empty();
-        heardContainer.append($adHeard.html());
-
-        menuContainer.empty();
-        menuContainer.append($adMenu.html());
-
-        menudetContainer.empty();
-        menudetContainer.append($adMenuDetail.html());
-
-        // 用户账号密码
-        SERVER.call("http://localhost:3000/queryAll",
-            {},
-            function (res) {
-                var app = angular.module("md", []);
-                app.controller("mdCtrl", function ($scope) {
-                    $scope.rows = ["1", "2", "3"];
-                });
-            }
-        );
-
-
-        menuContainer.find(".menu ul li").menu();
-
-
-    });
-
-}
+ReactDOM.render(
+    <HelloMessage />,
+    document.getElementById('input')
+);
