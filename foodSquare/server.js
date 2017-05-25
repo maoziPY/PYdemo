@@ -37,11 +37,10 @@ app.get('/checkUser', function(req, res) {
 
 app.get('/getData', function(req, res) {
 	response = {
-		database: req.query.database
+		tableName: req.query.tableName
 	};
 
-	user.getData(response.database, function(err, data) {
-		console.log(data);
+	user.getData(response.tableName, function(err, data) {
 		res.end(JSON.stringify({
 			result: 'ok',
 			data: data
