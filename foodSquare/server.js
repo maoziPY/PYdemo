@@ -48,6 +48,20 @@ app.get('/getData', function(req, res) {
 	});
 });
 
+app.get('/delData', function(req, res) {
+	response = {
+		tableName: req.query.tableName,
+		id: req.query.id
+	};
+
+	user.deleteData(response.tableName, response.id, function(err, data) {
+		res.end(JSON.stringify({
+			result: 'ok',
+			data: data
+		}));
+	});
+});
+
 app.use(express.static('public'));
 
 var server = app.listen(8081, function() {

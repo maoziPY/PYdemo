@@ -60,7 +60,7 @@ var HelloMessage = React.createClass({
                                         <th>操作</th>
                                     </tr>
                                     </thead>
-                                    <TbodyClass trData={this.state.trData}/>
+                                    <TbodyClass trData={this.state.trData} callbackParentgetData={this.getData}/>
                                 </table>
                             </div>
                             <div className="page">
@@ -90,6 +90,7 @@ var HelloMessage = React.createClass({
     }
 });
 
+//左侧菜单
 var MenuList = React.createClass({
 
     getData(tableName) {
@@ -100,7 +101,7 @@ var MenuList = React.createClass({
         var row = [];
         $(this.props.menu.data).each(function(i, k) {
             row.push(
-                <li><a href="javascript:void(0)" onClick={this.getData.bind(this, k.tablename)}>{k.name}</a></li>
+                <li style={{color: 'red'}}><a href="javascript:void(0)" onClick={this.getData.bind(this, k.tablename)}>{k.name}</a></li>
             );
         }.bind(this));
 
@@ -134,7 +135,41 @@ var MenuList = React.createClass({
     }
 });
 
+
+//右侧列表
 var TbodyClass = React.createClass({
+
+    /**
+     * [edit 编辑]
+     * @param  {[number]} id [id]
+     */
+    edit(id) {
+        console.log(id);
+    },
+
+    /**
+     * [delete 删除]
+     * @param  {[number]} id [id]
+     * @param  {[number]} tablename [表名称]
+     */
+    delete(id, tablename) {
+
+        //删除确认提示
+        if (confirm('删除是不可恢复的，你确认要删除吗？')) {
+            var data = {
+                tablename: 'user',
+                id: id
+            }
+
+            SERVER.call('/delData', data, 'GET', function(res) {
+                var res = JSON.parse(res);
+                if (res.result == 'ok') {
+                    this.props.callbackParentgetData();
+                }
+            }.bind(this));
+        }
+    },
+
     render() {
         var row = [];
         $(this.props.trData.data).each(function(i, k) {
@@ -142,9 +177,12 @@ var TbodyClass = React.createClass({
                             <th scope="row">{k.id}</th>
                             <td>{k.username}</td>
                             <td>{k.password}</td>
-                            <td>管理 删除</td>
+                            <td>
+                                <span style={{cursor: 'pointer'}} onClick={this.edit.bind(this, k.id)}>编辑 </span>
+                                <span style={{cursor: 'pointer'}} onClick={this.delete.bind(this, k.id)}>删除 </span> 
+                            </td>
                      </tr>);
-        });
+        }.bind(this));
         return (
             <tbody>
                 {row}
