@@ -144,26 +144,26 @@ var TbodyClass = React.createClass({
      * @param  {[number]} id [id]
      */
     edit(id) {
-        console.log(id);
     },
 
     /**
      * [delete 删除]
      * @param  {[number]} id [id]
-     * @param  {[number]} tablename [表名称]
+     * @param  {[number]} tableName [表名称]
      */
-    delete(id, tablename) {
+    delete(id, tableName) {
 
         //删除确认提示
         if (confirm('删除是不可恢复的，你确认要删除吗？')) {
             var data = {
-                tablename: 'user',
+                tableName: 'user',
                 id: id
             }
 
             SERVER.call('/delData', data, 'GET', function(res) {
                 var res = JSON.parse(res);
                 if (res.result == 'ok') {
+                    console.log(res);
                     this.props.callbackParentgetData();
                 }
             }.bind(this));

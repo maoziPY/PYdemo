@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50547
 File Encoding         : 65001
 
-Date: 2017-05-25 17:04:05
+Date: 2017-05-27 16:59:15
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -49,9 +49,9 @@ CREATE TABLE `admin` (
 -- ----------------------------
 DROP TABLE IF EXISTS `blog`;
 CREATE TABLE `blog` (
-  `id` int(4) NOT NULL AUTO_INCREMENT,
-  `title` char(40) NOT NULL,
-  `main_body` varchar(300) DEFAULT NULL,
+  `id` int(4) NOT NULL DEFAULT '0' COMMENT '序号',
+  `title` varchar(40) DEFAULT NULL COMMENT '标题',
+  `main_body` varchar(300) DEFAULT NULL COMMENT '正文',
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
@@ -66,9 +66,9 @@ INSERT INTO `blog` VALUES ('1', '文章标题', '文章正文', '2017-05-25 17:0
 -- ----------------------------
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `username` varchar(255) DEFAULT NULL,
-  `password` varchar(255) DEFAULT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '序号',
+  `username` varchar(255) NOT NULL COMMENT '用户名',
+  `password` varchar(255) NOT NULL COMMENT '密码',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=gbk;
 

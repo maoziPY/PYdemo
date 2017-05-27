@@ -25,6 +25,8 @@ User.getUserbyUsername = function(username, callback) {
 
 User.getData = function(tableName, callback) {
 	var selectSql = 'select * from ' + tableName + ';';
+	// var selectSql = 'show full columns from blog';
+	
 	connection.query(selectSql, [], function(err, res) {
 		if (err) {
 			console.log('err: ' + err);
@@ -36,6 +38,14 @@ User.getData = function(tableName, callback) {
 
 User.deleteData = function(tableName, id, callback) {
 	var selectSql = 'delete from user where id = ?';
+
+	var par = {
+		selectSql: selectSql,
+		arr: [],
+		callback: callback
+	};
+	this.query(par);
+	
 	connection.query(selectSql, [id], function(err, res) {
 		if (err) {
 			console.log('getUserbyUsername err:' + err);
@@ -44,5 +54,16 @@ User.deleteData = function(tableName, id, callback) {
 		callback(err, res);
 	});
 };
+
+User.query = function(par) {
+
+	connection.query(par.selectSql, par.arr, function(err, res) {
+		if (err) {
+			console.log('getUserbyUsername err:' + err);
+			return;
+		}
+		par.callback(err, res);
+	});
+}
 
 module.exports = User;
