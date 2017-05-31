@@ -1,9 +1,16 @@
 var HelloMessage = React.createClass({
     getInitialState() {
         return {
+            //右侧列表数据
             tableData: this.props.tableData,
+            //左侧菜单列表
             menu: this.props.menu,
-            tableName: this.props.tableName
+            //表格名称
+            tableName: this.props.tableName,
+            //显示or隐藏编辑窗口
+            dsiologDisplay: 'none',
+            //编辑的任务下标
+            editIndex: 0,
         };
     },
 
@@ -27,6 +34,23 @@ var HelloMessage = React.createClass({
                 }
             }
         }.bind(this));
+    },
+
+    /**
+     * [stateControl 修改state值]
+     * @param  {[string]} key [键]
+     * @param  {[string]} val [值]
+     */
+    stateControl(key, val) {
+        switch(key) {
+            case 'dsiologDisplay':
+            this.setState({dsiologDisplay: val});
+            break;
+        }
+    },
+
+    edit(index) {
+        this.setState({editIndex: index, dsiologDisplay: 'block'});
     },
 
     render() {
@@ -56,7 +80,7 @@ var HelloMessage = React.createClass({
                         <div className="adMenuDetail col-lg-9">
                             <div data-example-id="contextual-table" className="listBlock">
                                 {/*右侧table渲染区*/}
-                                <TableClass tableData={this.state.tableData} callbackParentgetData={this.getData} tableName={this.state.tableName}/>
+                                <TableClass tableData={this.state.tableData} callbackParentgetData={this.getData} tableName={this.state.tableName} callbackParentSetstatu={this.stateControl} edit={this.edit}/>
                             </div>
                             <div className="page">
                                 <nav>
@@ -82,29 +106,7 @@ var HelloMessage = React.createClass({
                         </div>
                     </div>
                     {/*编辑弹窗*/}
-                    <div>
-                        <form className="form-horizontal">
-                          <div className="form-group">
-                            <label for="inputEmail3" className="col-sm-2 control-label">Email</label>
-                            <div className="col-sm-10">
-                              <input type="email" className="form-control" id="inputEmail3" placeholder="Email" />
-                            </div>
-                          </div>
-                          <div className="form-group">
-                            <label for="inputPassword3" className="col-sm-2 control-label">Password</label>
-                            <div className="col-sm-10">
-                              <input type="password" className="form-control" id="inputPassword3" placeholder="Password" />
-                            </div>
-                          </div>
-                          <div className="form-group">
-                            <div className="col-sm-offset-2 col-sm-10">
-                              <button type="submit" className="btn btn-default">保存</button>
-                              <button type="submit" className="btn btn-default">取消</button>
-                            </div>
-                          </div>
-                        </form>
-                        <div className="mask"></div>
-                    </div>
+                    <DialogClass dsiologDisplay={this.state.dsiologDisplay} callbackParentSetstatu={this.stateControl} tableData={this.state.tableData} editIndex={this.state.editIndex}/>
                 </span>;
     }
 });
@@ -159,13 +161,6 @@ var MenuList = React.createClass({
 var TableClass = React.createClass({
 
     /**
-     * [edit 编辑]
-     * @param  {[number]} id [id]
-     */
-    edit(id) {
-    },
-
-    /**
      * [delete 删除]
      * @param  {[number]} id [id]
      * @param  {[number]} tableName [表名称]
@@ -198,7 +193,7 @@ var TableClass = React.createClass({
             row.push(<tr className="active">
                             {td}
                             <td>
-                                <span style={{cursor: 'pointer'}} onClick={this.edit.bind(this, k.id, this.props.tableName)}>编辑 </span>
+                                <span style={{cursor: 'pointer'}} onClick={this.props.edit.bind(this, i)}>编辑 </span>
                                 <span style={{cursor: 'pointer'}} onClick={this.delete.bind(this, k.id, this.props.tableName)}>删除 </span> 
                             </td>
                      </tr>);
@@ -222,6 +217,44 @@ var TableClass = React.createClass({
                     {row}
                 </tbody>
             </table>
+        );
+    }
+});
+
+//编辑弹窗
+var DialogClass = React.createClass({
+    render() {
+        var rows = [];
+        var index = this.props.editIndex ? this.props.editIndex : 0;
+        $(this.props.tableData.rows).each(function(i, k) {
+            if (k.Field != 'id') {
+                rows.push(
+                    <div className="form-group">
+                      <label for="inputEmail3" className="col-sm-2 control-label">{k.Comment}</label>
+                      <div className="col-sm-10">
+                        <input type="email" className="form-control" id="inputEmail3" placeholder={k.Comment} value={this.props.tableData.data[index][k.Field]}/>
+                      </div>
+                    </div>
+                );
+            }
+        }.bind(this));
+
+        return (
+            <div style={{display: this.props.dsiologDisplay}}>
+                <div className="form-horizontal">
+                   <div className="form-group">
+                        <button type="button" className="close" onClick={this.props.callbackParentSetstatu.bind(this,'dsiologDisplay', 'none')}><span className="glyphicon glyphicon-remove"></span></button>
+                  </div>
+                  {rows}
+                  <div className="form-group">
+                    <div className="col-sm-offset-2 col-sm-10">
+                      <button type="submit" className="btn btn-default" onClick={this.props.callbackParentSetstatu.bind(this,'dsiologDisplay', 'none')}>保存</button>
+                      <button type="submit" className="btn btn-default" onClick={this.props.callbackParentSetstatu.bind(this,'dsiologDisplay', 'none')}>取消</button>
+                    </div>
+                  </div>
+                </div>
+                <div className="mask"></div>
+            </div>
         );
     }
 });

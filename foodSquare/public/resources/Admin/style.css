@@ -73,10 +73,14 @@ body, html {
 }
 
 .form-horizontal {
-    border: 1px solid black;
     position: absolute;
     top: 50%;
-    left: 50%;
+    left: 25%;
     z-index: 999;
     background-color: wheat;
+    width: 50%;
+}
+
+.close {
+    margin-right: 20px;
 }
