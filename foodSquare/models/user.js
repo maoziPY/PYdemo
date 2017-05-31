@@ -29,13 +29,14 @@ User.getData = function(tableName, callback) {
 		arr: [],
 		callback: callback
 	};
+	console.log(par.selectSql);
 	this.query(par);
 };
 
 // 删除数据
 User.deleteData = function(tableName, id, callback) {
 	var par = {
-		selectSql: 'delete from user where id = ?',
+		selectSql: 'delete from '+ tableName +' where id = ?',
 		arr: [id],
 		callback: callback
 	};

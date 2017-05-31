@@ -1,8 +1,9 @@
 var HelloMessage = React.createClass({
     getInitialState() {
         return {
-            trData: this.props.trData,
-            menu: this.props.menu
+            tableData: this.props.tableData,
+            menu: this.props.menu,
+            tableName: this.props.tableName
         };
     },
 
@@ -18,7 +19,7 @@ var HelloMessage = React.createClass({
                 switch(tableName) {
                     case 'user':
                     case 'blog':
-                    this.setState({trData: res});
+                    this.setState({tableData: res, tableName: tableName});
 
                     break;
                     case 'adMenu':
@@ -52,7 +53,7 @@ var HelloMessage = React.createClass({
                         </div>
                         <div className="adMenuDetail col-lg-9">
                             <div data-example-id="contextual-table" className="listBlock">
-                                <TbodyClass trData={this.state.trData} callbackParentgetData={this.getData}/>
+                                <TableClass tableData={this.state.tableData} callbackParentgetData={this.getData} tableName={this.state.tableName}/>
                             </div>
                             <div className="page">
                                 <nav>
@@ -128,7 +129,7 @@ var MenuList = React.createClass({
 
 
 //右侧列表
-var TbodyClass = React.createClass({
+var TableClass = React.createClass({
 
     /**
      * [edit 编辑]
@@ -147,15 +148,14 @@ var TbodyClass = React.createClass({
         //删除确认提示
         if (confirm('删除是不可恢复的，你确认要删除吗？')) {
             var data = {
-                tableName: 'user',
+                tableName: tableName,
                 id: id
             }
 
             SERVER.call('/delData', data, 'GET', function(res) {
                 var res = JSON.parse(res);
                 if (res.result == 'ok') {
-                    console.log(res);
-                    this.props.callbackParentgetData();
+                    this.props.callbackParentgetData(tableName);
                 }
             }.bind(this));
         }
@@ -163,7 +163,7 @@ var TbodyClass = React.createClass({
 
     render() {
         var row = [];
-        $(this.props.trData.data).each(function(i, k) {
+        $(this.props.tableData.data).each(function(i, k) {
             var td = [];
             for(var x in k) {
                 td.push(<td>{k[x]}</td>);
@@ -171,14 +171,14 @@ var TbodyClass = React.createClass({
             row.push(<tr className="active">
                             {td}
                             <td>
-                                <span style={{cursor: 'pointer'}} onClick={this.edit.bind(this, k.id)}>编辑 </span>
-                                <span style={{cursor: 'pointer'}} onClick={this.delete.bind(this, k.id)}>删除 </span> 
+                                <span style={{cursor: 'pointer'}} onClick={this.edit.bind(this, k.id, this.props.tableName)}>编辑 </span>
+                                <span style={{cursor: 'pointer'}} onClick={this.delete.bind(this, k.id, this.props.tableName)}>删除 </span> 
                             </td>
                      </tr>);
         }.bind(this));
 
         var rows = [];
-        $(this.props.trData.rows).each(function(i, k) {
+        $(this.props.tableData.rows).each(function(i, k) {
             rows.push(<th>{k.Comment}</th>);
         }.bind(this));
 
@@ -200,7 +200,7 @@ var TbodyClass = React.createClass({
 });
 
 var postData = {
-    trData: {},
+    tableData: {},
     menu: {}
 };
 
@@ -214,7 +214,7 @@ function getData(tableName, callback) {
         if (res.result == 'ok') {
             switch(tableName) {
                 case 'user':
-                postData.trData = res;
+                postData.tableData = res;
 
                 break;
                 case 'adMenu':
@@ -231,7 +231,7 @@ function getData(tableName, callback) {
 getData('user', function() {
     getData('adMenu', function() {
         ReactDOM.render(
-            <HelloMessage trData={postData.trData} menu={postData.menu}  />,
+            <HelloMessage tableData={postData.tableData} menu={postData.menu} tableName="user" />,
             document.getElementById('input')
         );
     });
