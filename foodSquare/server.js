@@ -41,10 +41,13 @@ app.get('/getData', function(req, res) {
 	};
 
 	user.getData(response.tableName, function(err, data) {
-		res.end(JSON.stringify({
-			result: 'ok',
-			data: data
-		}));
+		user.getComment(response.tableName, function(err, commentData) {
+			res.end(JSON.stringify({
+				result: 'ok',
+				rows: commentData,
+				data: data
+			}));
+		});
 	});
 });
 

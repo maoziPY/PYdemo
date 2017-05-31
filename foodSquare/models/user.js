@@ -12,58 +12,58 @@ function User(user) {
 	this.password = user.password;
 }
 
+// 获取用户信息
 User.getUserbyUsername = function(username, callback) {
-	var selectSql = 'select * from user where username = ?';
-	connection.query(selectSql, [username], function(err, res) {
-		if (err) {
-			console.log('getUserbyUsername err:' + err);
-			return;
-		} 
-		callback(err, res);
-	});
-};
-
-User.getData = function(tableName, callback) {
-	var selectSql = 'select * from ' + tableName + ';';
-	// var selectSql = 'show full columns from blog';
-	
-	connection.query(selectSql, [], function(err, res) {
-		if (err) {
-			console.log('err: ' + err);
-			return;
-		}
-		callback(err, res);
-	});
-};
-
-User.deleteData = function(tableName, id, callback) {
-	var selectSql = 'delete from user where id = ?';
-
 	var par = {
-		selectSql: selectSql,
+		selectSql: 'select * from user where username = ?',
+		arr: [username],
+		callback: callback
+	};
+	this.query(par);
+};
+
+// 获取表数据
+User.getData = function(tableName, callback) {
+	var par = {
+		selectSql: 'select * from ' + tableName + ';',
 		arr: [],
 		callback: callback
 	};
 	this.query(par);
-	
-	connection.query(selectSql, [id], function(err, res) {
-		if (err) {
-			console.log('getUserbyUsername err:' + err);
-			return;
-		}
-		callback(err, res);
-	});
 };
 
+// 删除数据
+User.deleteData = function(tableName, id, callback) {
+	var par = {
+		selectSql: 'delete from user where id = ?',
+		arr: [id],
+		callback: callback
+	};
+	this.query(par);
+};
+
+// 获取注释
+User.getComment = function(tableName, callback) {
+	var par = {
+		selectSql: 'show full columns from '+ tableName +';',
+		arr: [],
+		callback: callback
+	};
+	this.query(par);
+};
+
+// 查询主体
 User.query = function(par) {
 
-	connection.query(par.selectSql, par.arr, function(err, res) {
+	var queryCallback = function(err, res) {
 		if (err) {
 			console.log('getUserbyUsername err:' + err);
 			return;
 		}
 		par.callback(err, res);
-	});
+	};
+
+	connection.query(par.selectSql, par.arr, queryCallback);
 }
 
 module.exports = User;

@@ -17,6 +17,7 @@ var HelloMessage = React.createClass({
             if (res.result == 'ok') {
                 switch(tableName) {
                     case 'user':
+                    case 'blog':
                     this.setState({trData: res});
 
                     break;
@@ -51,17 +52,7 @@ var HelloMessage = React.createClass({
                         </div>
                         <div className="adMenuDetail col-lg-9">
                             <div data-example-id="contextual-table" className="listBlock">
-                                <table className="table table-hover">
-                                    <thead>
-                                    <tr>
-                                        <th>序号</th>
-                                        <th>用户名</th>
-                                        <th>密码</th>
-                                        <th>操作</th>
-                                    </tr>
-                                    </thead>
-                                    <TbodyClass trData={this.state.trData} callbackParentgetData={this.getData}/>
-                                </table>
+                                <TbodyClass trData={this.state.trData} callbackParentgetData={this.getData}/>
                             </div>
                             <div className="page">
                                 <nav>
@@ -173,20 +164,37 @@ var TbodyClass = React.createClass({
     render() {
         var row = [];
         $(this.props.trData.data).each(function(i, k) {
+            var td = [];
+            for(var x in k) {
+                td.push(<td>{k[x]}</td>);
+            }
             row.push(<tr className="active">
-                            <th scope="row">{k.id}</th>
-                            <td>{k.username}</td>
-                            <td>{k.password}</td>
+                            {td}
                             <td>
                                 <span style={{cursor: 'pointer'}} onClick={this.edit.bind(this, k.id)}>编辑 </span>
                                 <span style={{cursor: 'pointer'}} onClick={this.delete.bind(this, k.id)}>删除 </span> 
                             </td>
                      </tr>);
         }.bind(this));
+
+        var rows = [];
+        $(this.props.trData.rows).each(function(i, k) {
+            rows.push(<th>{k.Comment}</th>);
+        }.bind(this));
+
+        rows.push(<th>操作</th>);
+
         return (
-            <tbody>
-                {row}
-            </tbody>
+            <table className="table table-hover">
+                <thead>
+                <tr>
+                    {rows}
+                </tr>
+                </thead>
+                <tbody>
+                    {row}
+                </tbody>
+            </table>
         );
     }
 });
