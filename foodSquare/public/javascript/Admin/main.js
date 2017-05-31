@@ -30,8 +30,9 @@ var HelloMessage = React.createClass({
     },
 
     render() {
+        var red = 'red';
         return <span>
-                    <div className="adHeard container-fluid">
+                    <div className="adHeard container-fluid" style={{color: red}}>
                         <div>
                             <img src="resources/Admin/images/2.gif" width="100%" height="100px"/>
                         </div>
@@ -47,12 +48,14 @@ var HelloMessage = React.createClass({
                         <div className="adMenu col-lg-3">
                             <div id="content">
                             <div className="menu">
+                                {/*左侧列表区*/}
                                 <MenuList menu={this.state.menu} callbackParentgetData={this.getData}/>
                             </div>
                         </div>
                         </div>
                         <div className="adMenuDetail col-lg-9">
                             <div data-example-id="contextual-table" className="listBlock">
+                                {/*右侧table渲染区*/}
                                 <TableClass tableData={this.state.tableData} callbackParentgetData={this.getData} tableName={this.state.tableName}/>
                             </div>
                             <div className="page">
@@ -77,6 +80,30 @@ var HelloMessage = React.createClass({
                                 </nav>
                             </div>
                         </div>
+                    </div>
+                    {/*编辑弹窗*/}
+                    <div>
+                        <form className="form-horizontal">
+                          <div className="form-group">
+                            <label for="inputEmail3" className="col-sm-2 control-label">Email</label>
+                            <div className="col-sm-10">
+                              <input type="email" className="form-control" id="inputEmail3" placeholder="Email" />
+                            </div>
+                          </div>
+                          <div className="form-group">
+                            <label for="inputPassword3" className="col-sm-2 control-label">Password</label>
+                            <div className="col-sm-10">
+                              <input type="password" className="form-control" id="inputPassword3" placeholder="Password" />
+                            </div>
+                          </div>
+                          <div className="form-group">
+                            <div className="col-sm-offset-2 col-sm-10">
+                              <button type="submit" className="btn btn-default">保存</button>
+                              <button type="submit" className="btn btn-default">取消</button>
+                            </div>
+                          </div>
+                        </form>
+                        <div className="mask"></div>
                     </div>
                 </span>;
     }

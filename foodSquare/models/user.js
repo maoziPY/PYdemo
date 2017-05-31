@@ -29,7 +29,6 @@ User.getData = function(tableName, callback) {
 		arr: [],
 		callback: callback
 	};
-	console.log(par.selectSql);
 	this.query(par);
 };
 
