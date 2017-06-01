@@ -11,10 +11,13 @@ var HelloMessage = React.createClass({
             dsiologDisplay: 'none',
             //编辑的任务下标
             editIndex: 0,
+            //编辑的任务数据
+            selectData: {}
         };
     },
 
     getData(tableName) {
+        console.log(tableName);
         tableName = typeof tableName == 'string' ? tableName : 'user';
         var data = {
             tableName: tableName
@@ -49,8 +52,8 @@ var HelloMessage = React.createClass({
         }
     },
 
-    edit(index) {
-        this.setState({editIndex: index, dsiologDisplay: 'block'});
+    edit(index, selectData) {
+        this.setState({editIndex: index, dsiologDisplay: 'block', selectData: selectData});
     },
 
     render() {
@@ -106,7 +109,7 @@ var HelloMessage = React.createClass({
                         </div>
                     </div>
                     {/*编辑弹窗*/}
-                    <DialogClass dsiologDisplay={this.state.dsiologDisplay} callbackParentSetstatu={this.stateControl} tableData={this.state.tableData} editIndex={this.state.editIndex}/>
+                    <DialogClass dsiologDisplay={this.state.dsiologDisplay} getData={this.getData} callbackParentSetstatu={this.stateControl} tableData={this.state.tableData} editIndex={this.state.editIndex} selectData={this.state.selectData} tableName={this.state.tableName}/>
                 </span>;
     }
 });
@@ -193,7 +196,7 @@ var TableClass = React.createClass({
             row.push(<tr className="active">
                             {td}
                             <td>
-                                <span style={{cursor: 'pointer'}} onClick={this.props.edit.bind(this, i)}>编辑 </span>
+                                <span style={{cursor: 'pointer'}} onClick={this.props.edit.bind(this, i, k)}>编辑 </span>
                                 <span style={{cursor: 'pointer'}} onClick={this.delete.bind(this, k.id, this.props.tableName)}>删除 </span> 
                             </td>
                      </tr>);
@@ -221,18 +224,55 @@ var TableClass = React.createClass({
     }
 });
 
+
 //编辑弹窗
 var DialogClass = React.createClass({
+
+    getInitialState() {
+        return {
+            newData: {}
+        }
+    },
+
+    handleOnchange(e) {
+        this.state.newData[e.target.id] = e.target.value;
+    },
+
+    //保存
+    save() {
+
+        //没有修改数据
+        if (JSON.stringify(this.state.newData) == '{}') {
+            //关闭弹窗
+            this.props.callbackParentSetstatu('dsiologDisplay', 'none');
+            return;
+        }
+
+        var data = {
+            tableName: this.props.tableName,
+            selectData: this.props.selectData,
+            newData: this.state.newData
+        }
+
+        SERVER.call('/editData', data, 'GET', function(res) {
+            var res = JSON.parse(res);
+            if (res.result == 'ok') {
+                this.props.callbackParentSetstatu('dsiologDisplay', 'none');
+                this.props.getData(this.props.tableName);
+            }
+        }.bind(this));
+    },
+
     render() {
         var rows = [];
         var index = this.props.editIndex ? this.props.editIndex : 0;
         $(this.props.tableData.rows).each(function(i, k) {
-            if (k.Field != 'id') {
+            if (k.Field != 'id' && k.Field != 'create_time') {
                 rows.push(
                     <div className="form-group">
                       <label for="inputEmail3" className="col-sm-2 control-label">{k.Comment}</label>
                       <div className="col-sm-10">
-                        <input type="email" className="form-control" id="inputEmail3" placeholder={k.Comment} value={this.props.tableData.data[index][k.Field]}/>
+                        <input className="form-control" id={k.Field} placeholder={this.props.tableData.data[index][k.Field]} onChange={this.handleOnchange}/>
                       </div>
                     </div>
                 );
@@ -248,7 +288,7 @@ var DialogClass = React.createClass({
                   {rows}
                   <div className="form-group">
                     <div className="col-sm-offset-2 col-sm-10">
-                      <button type="submit" className="btn btn-default" onClick={this.props.callbackParentSetstatu.bind(this,'dsiologDisplay', 'none')}>保存</button>
+                      <button type="submit" className="btn btn-default" onClick={this.save}>保存</button>
                       <button type="submit" className="btn btn-default" onClick={this.props.callbackParentSetstatu.bind(this,'dsiologDisplay', 'none')}>取消</button>
                     </div>
                   </div>

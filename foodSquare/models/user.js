@@ -42,6 +42,22 @@ User.deleteData = function(tableName, id, callback) {
 	this.query(par);
 };
 
+// 编辑数据
+User.editData = function(par, callback) {
+	var str = '';
+	for(var x in par.newData) {
+		str += (' ' + x+'='+"'"+par.newData[x]+"'");
+	}
+
+	var par = {
+		selectSql: 'update '+ par.tableName +' set'+ str +' where id = ?',
+		arr: [par.selectData.id],
+		callback: callback
+	};
+	console.log(par);
+	this.query(par);
+};
+
 // 获取注释
 User.getComment = function(tableName, callback) {
 	var par = {

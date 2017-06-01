@@ -65,6 +65,16 @@ app.get('/delData', function(req, res) {
 	});
 });
 
+//编辑数据
+app.get('/editData', function(req, res) {
+	user.editData(req.query, function(err, data) {
+		res.end(JSON.stringify({
+			result: 'ok',
+			data: data
+		}));
+	});
+});
+
 app.use(express.static('public'));
 
 var server = app.listen(8081, function() {

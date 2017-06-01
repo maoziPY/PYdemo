@@ -79,6 +79,8 @@ body, html {
     z-index: 999;
     background-color: wheat;
     width: 50%;
+    border: 5px solid white;
+    border-radius: 5px;
 }
 
 .close {
