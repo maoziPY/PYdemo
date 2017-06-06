@@ -17,7 +17,6 @@ var HelloMessage = React.createClass({
     },
 
     getData(tableName) {
-        console.log(tableName);
         tableName = typeof tableName == 'string' ? tableName : 'user';
         var data = {
             tableName: tableName
@@ -272,7 +271,7 @@ var DialogClass = React.createClass({
                     <div className="form-group">
                       <label for="inputEmail3" className="col-sm-2 control-label">{k.Comment}</label>
                       <div className="col-sm-10">
-                        <input className="form-control" id={k.Field} placeholder={this.props.tableData.data[index][k.Field]} onChange={this.handleOnchange}/>
+                        <input className="form-control" id={k.Field} value={this.state.newData[k.Field]} placeholder={this.props.tableData.data[index][k.Field]} onChange={this.handleOnchange}/>
                       </div>
                     </div>
                 );
