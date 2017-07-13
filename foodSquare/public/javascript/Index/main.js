@@ -348,5 +348,5 @@ var Main = React.createClass({
 
 ReactDOM.render(
     <Main />,
-    document.getElementById('main')
+    document.getElementsByClassName('main')[0]
 );
