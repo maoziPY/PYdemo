@@ -19,4 +19,11 @@ SERVER.call = function(url, par, type, success) {
             }
         }
     });
+};/*
+
+
+SERVER.test = function() {
+    console.log(123);
 };
+
+export default SERVER;*/
