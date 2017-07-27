@@ -10054,7 +10054,14 @@ var _reactDom2 = _interopRequireDefault(_reactDom);
 
 __webpack_require__(193);
 
+var _tools = __webpack_require__(198);
+
+var _tools2 = _interopRequireDefault(_tools);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/*var React = require('react');
+var ReactDOM = require('react-dom');*/
 
 var HelloMessage = _react2.default.createClass({
     displayName: 'HelloMessage',
@@ -10073,7 +10080,7 @@ var HelloMessage = _react2.default.createClass({
             password: this.state.password
         };
 
-        SERVER.call('/checkUser', data, 'GET', function (res) {
+        _tools2.default.call('/checkUser', data, 'GET', function (res) {
             var res = JSON.parse(res);
             if (res.result == 'ok') {
                 var data = res.data;
@@ -10128,8 +10135,7 @@ var HelloMessage = _react2.default.createClass({
             )
         );
     }
-}); /*var React = require('react');
-    var ReactDOM = require('react-dom');*/
+});
 
 _reactDom2.default.render(_react2.default.createElement(HelloMessage, null), document.getElementById('input'));
 
@@ -23994,6 +24000,37 @@ module.exports = function (css) {
 	return fixedCss;
 };
 
+
+/***/ }),
+/* 198 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/**
+ * Created by PY on 2016/6/21 0021.
+ */
+var SERVER = {};
+
+/**
+ *  @param url 请求路径
+ *  @param par 请求参数
+ *  @param success 成功的回调方法
+ * */
+SERVER.call = function(url, par, type, success) {
+    $.ajax({
+        type: type,
+        url: url,
+        data: par,
+        success: function(res) {
+            if(success) {
+                success(res);
+            }
+        }
+    });
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (SERVER);
 
 /***/ })
 /******/ ]);

@@ -4,7 +4,7 @@ var ReactDOM = require('react-dom');*/
 import React from 'react';
 import ReactDOM from 'react-dom';
 import '../../resources/Login/style.css';
-
+import SERVER from '../lib/plugins/tools/tools.js'
 var HelloMessage = React.createClass({
     getInitialState: function() {
         return {
