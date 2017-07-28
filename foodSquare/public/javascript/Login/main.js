@@ -1,11 +1,10 @@
-/*var React = require('react');
-var ReactDOM = require('react-dom');*/
-
 import React from 'react';
+import createReactClass from 'create-react-class';// After (15.5)
 import ReactDOM from 'react-dom';
 import '../../resources/Login/style.css';
 import SERVER from '../lib/plugins/tools/tools.js'
-var HelloMessage = React.createClass({
+
+var HelloMessage = createReactClass({
     getInitialState: function() {
         return {
             username: '',
@@ -14,7 +13,6 @@ var HelloMessage = React.createClass({
     },
 
     handelClick: function() {
-
         var data = {
             username: this.state.username,
             password: this.state.password
