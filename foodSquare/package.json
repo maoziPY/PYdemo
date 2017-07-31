@@ -19,12 +19,15 @@
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "style-loader": "^0.18.2",
-    "webpack": "^3.3.0"
+    "webpack": "^3.3.0",
+    "webpack-merge": "^4.1.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
-    "build": "webpack"
+    "build": "webpack",
+    "build:dev": "webpack --env=dev --progress --profile --colors",
+    "build:dist": "webpack --env=prod -- progress --profile --colors"
   },
   "keywords": [],
   "author": "",
