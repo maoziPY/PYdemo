@@ -1,4 +1,10 @@
-var HelloMessage = React.createClass({
+import React from 'react';
+import createReactClass from 'create-react-class';// After (15.5)
+import ReactDOM from 'react-dom';
+import '../../resources/Admin/style.css';
+import SERVER from '../lib/plugins/tools/tools.js'
+
+var HelloMessage = createReactClass({
     getInitialState() {
         return {
             //右侧列表数据
@@ -82,7 +88,7 @@ var HelloMessage = React.createClass({
                         <div className="adMenuDetail col-lg-9">
                             <div data-example-id="contextual-table" className="listBlock">
                                 {/*右侧table渲染区*/}
-                                <TableClass tableData={this.state.tableData} callbackParentgetData={this.getData} tableName={this.state.tableName} callbackParentSetstatu={this.stateControl} edit={this.edit}/>
+                                {<TableClass tableData={this.state.tableData} callbackParentgetData={this.getData} tableName={this.state.tableName} callbackParentSetstatu={this.stateControl} edit={this.edit}/>}
                             </div>
                             <div className="page">
                                 <nav>
@@ -108,25 +114,22 @@ var HelloMessage = React.createClass({
                         </div>
                     </div>
                     {/*编辑弹窗*/}
-                    <DialogClass dsiologDisplay={this.state.dsiologDisplay} getData={this.getData} callbackParentSetstatu={this.stateControl} tableData={this.state.tableData} editIndex={this.state.editIndex} selectData={this.state.selectData} tableName={this.state.tableName}/>
+                    {<DialogClass dsiologDisplay={this.state.dsiologDisplay} getData={this.getData} callbackParentSetstatu={this.stateControl} tableData={this.state.tableData} editIndex={this.state.editIndex} selectData={this.state.selectData} tableName={this.state.tableName}/>}
                 </span>;
     }
 });
 
 //左侧菜单
-var MenuList = React.createClass({
+var MenuList = createReactClass({
 
     getData(tableName) {
         this.props.callbackParentgetData(tableName);
     },
 
     render() {
-        var row = [];
-        $(this.props.menu.data).each(function(i, k) {
-            row.push(
-                <li style={{color: 'red'}}><a href="javascript:void(0)" onClick={this.getData.bind(this, k.tablename)}>{k.name}</a></li>
-            );
-        }.bind(this));
+        var row = this.props.menu.data.map((k, i) =>
+           <li key={i} style={{color: 'red'}}><a href="javascript:void(0)" onClick={this.getData.bind(this, k.tablename)}>{k.name}</a></li>
+        );
 
         return (
             <ul>
@@ -160,7 +163,7 @@ var MenuList = React.createClass({
 
 
 //右侧列表
-var TableClass = React.createClass({
+var TableClass = createReactClass({
 
     /**
      * [delete 删除]
@@ -190,29 +193,27 @@ var TableClass = React.createClass({
         $(this.props.tableData.data).each(function(i, k) {
             var td = [];
             for(var x in k) {
-                td.push(<td>{k[x]}</td>);
+                td.push(<td key={x}>{k[x]}</td>);
             }
-            row.push(<tr className="active">
+            row.push(<tr key={i} className="active">
                             {td}
                             <td>
-                                <span style={{cursor: 'pointer'}} onClick={this.props.edit.bind(this, i, k)}>编辑 </span>
-                                <span style={{cursor: 'pointer'}} onClick={this.delete.bind(this, k.id, this.props.tableName)}>删除 </span> 
+                                <span style={{cursor: 'pointer'}} onClick={this.props.edit.bind(null, i, k)}>编辑 </span>
+                                <span style={{cursor: 'pointer'}} onClick={this.delete.bind(null, k.id, this.props.tableName)}>删除 </span> 
                             </td>
                      </tr>);
         }.bind(this));
 
-        var rows = [];
-        $(this.props.tableData.rows).each(function(i, k) {
-            rows.push(<th>{k.Comment}</th>);
-        }.bind(this));
-
-        rows.push(<th>操作</th>);
+        var rows = this.props.tableData.rows.map((k, i) =>
+            <th key={i}>{k.Comment}</th>
+        );
 
         return (
             <table className="table table-hover">
                 <thead>
                 <tr>
                     {rows}
+                    <th>操作</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -225,7 +226,7 @@ var TableClass = React.createClass({
 
 
 //编辑弹窗
-var DialogClass = React.createClass({
+var DialogClass = createReactClass({
 
     getInitialState() {
         return {
@@ -268,8 +269,8 @@ var DialogClass = React.createClass({
         $(this.props.tableData.rows).each(function(i, k) {
             if (k.Field != 'id' && k.Field != 'create_time') {
                 rows.push(
-                    <div className="form-group">
-                      <label for="inputEmail3" className="col-sm-2 control-label">{k.Comment}</label>
+                    <div key={i} className="form-group">
+                      <label data-for="inputEmail3" className="col-sm-2 control-label">{k.Comment}</label>
                       <div className="col-sm-10">
                         <input className="form-control" id={k.Field} value={this.state.newData[k.Field]} placeholder={this.props.tableData.data[index][k.Field]} onChange={this.handleOnchange}/>
                       </div>
@@ -282,13 +283,13 @@ var DialogClass = React.createClass({
             <div style={{display: this.props.dsiologDisplay}}>
                 <div className="form-horizontal">
                    <div className="form-group">
-                        <button type="button" className="close" onClick={this.props.callbackParentSetstatu.bind(this,'dsiologDisplay', 'none')}><span className="glyphicon glyphicon-remove"></span></button>
+                        <button type="button" className="close" onClick={this.props.callbackParentSetstatu.bind(null,'dsiologDisplay', 'none')}><span className="glyphicon glyphicon-remove"></span></button>
                   </div>
                   {rows}
                   <div className="form-group">
                     <div className="col-sm-offset-2 col-sm-10">
                       <button type="submit" className="btn btn-default" onClick={this.save}>保存</button>
-                      <button type="submit" className="btn btn-default" onClick={this.props.callbackParentSetstatu.bind(this,'dsiologDisplay', 'none')}>取消</button>
+                      <button type="submit" className="btn btn-default" onClick={this.props.callbackParentSetstatu.bind(null,'dsiologDisplay', 'none')}>取消</button>
                     </div>
                   </div>
                 </div>

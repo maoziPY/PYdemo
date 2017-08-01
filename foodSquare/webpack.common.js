@@ -1,6 +1,6 @@
 const path = require('path');
 
-const buildPath = 'Login';
+const buildPath = 'Admin';
 
 module.exports = {
     entry: './public/javascript/'+buildPath+'/main.js',
