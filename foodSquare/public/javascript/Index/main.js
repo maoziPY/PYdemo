@@ -1,4 +1,10 @@
-var Main = React.createClass({
+import React from 'react';
+import createReactClass from 'create-react-class';// After (15.5)
+import ReactDOM from 'react-dom';
+import '../../resources/Index/style.css';
+import SERVER from '../lib/plugins/tools/tools.js'
+
+var Main = createReactClass({
     render() {
         return <span>
             <div className="container-fluid">
